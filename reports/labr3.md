@@ -20,6 +20,9 @@ make run 和 本机strace结果图
 
 完善`syscall_renameat2`
 
+![Alt text](image-1.png)
+
+按照syscall文档简单判断flags，最后调用`rename`
 
 
 ### 实验3.2
