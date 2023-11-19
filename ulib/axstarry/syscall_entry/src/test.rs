@@ -365,7 +365,12 @@ pub const SDCARD_TESTCASES: &[&str] = &[
     // // "libc-bench",
     // // "busybox sh ./netperf_testcode.sh",
     // "busybox sh ./cyclictest_testcode.sh",
-    "busybox ls",
+    "busybox touch abc",
+    "busybox mv abc bin/",
+    "busybox ls bin/abc",
+    // "busybox touch def",
+    // "busybox mv def bin",
+    // "busybox ls bin/def",
 ];
 
 pub const NETPERF_TESTCASES: &[&str] = &[

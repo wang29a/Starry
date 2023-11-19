@@ -1,7 +1,47 @@
 
+## 实验
+
+### 实验3.1
+
+结果
+
+![](https://raw.githubusercontent.com/wang29a/image/master/20231119214502.png)
+
+make run 和 本机strace结果图
+
+![](https://raw.githubusercontent.com/wang29a/image/master/20231119194031.png)
+
+从图中看出系统调用的返回值不同，在代码中找到返回值的位置。
+
+在`ulib/axstarry/syscall_fs/src/imp/stat.rs/syscall_fstatat`，调用函数`get_stat_in_fs`，该函数返回值不符合预期，进入函数中修改。
+
+修改代码位置
+![](https://raw.githubusercontent.com/wang29a/image/master/20231119193540.png)
+
+完善`syscall_renameat2`
 
 
 
+### 实验3.2
+
+结果
+![](https://raw.githubusercontent.com/wang29a/image/master/20231119214213.png)
+
+![](https://raw.githubusercontent.com/wang29a/image/master/20231119214740.png)
+
+左边为内核的系统调用，右上是`busybox abc bin1`右下是`busybox bin1 bin`
+
+`bin`为文件夹，`bin1`不在当前目录下，对比发现，内核将`bin`作为了一个新的文件名，而不是文件夹，说明获取`bin`的信息时出现错误
+
+查看代码和syscall文档可以知道，通过FSTATAT，得到一个`stat`的信息，FSTATAT又通过调用`get_stat_in_fs`得到。
+
+最终找到了问题所在，在`ulib/axstarry/syscall/src/ctype/mount.rs`。
+
+![Alt text](image.png)
+
+代码中判断是否是文件不正确，进行改写。
+
+## 思考题
 
 ### 思考题1.1
 
@@ -47,4 +87,4 @@ main函数的最后调用testall
 
 **TODO**
 
-
+~~不是太懂为什么~~

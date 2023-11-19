@@ -47,6 +47,7 @@ pub fn syscall_fstat(fd: usize, kst: *mut Kstat) -> SyscallResult {
 pub fn syscall_fstatat(dir_fd: usize, path: *const u8, kst: *mut Kstat) -> SyscallResult {
     let file_path = deal_with_path(dir_fd, Some(path), false).unwrap();
     info!("path : {}", file_path.path());
+    error!("path : {}", file_path.path());
     match get_stat_in_fs(&file_path) {
         Ok(stat) => unsafe {
             *kst = stat;
